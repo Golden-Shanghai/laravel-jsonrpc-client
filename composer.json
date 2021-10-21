@@ -1,5 +1,5 @@
 {
-    "name": "ze/json-rpc-client",
+    "name": "ze/laravel-jsonrpc-client",
     "description": "rpc client base on json-rpc with http",
     "type": "library",
     "autoload": {
