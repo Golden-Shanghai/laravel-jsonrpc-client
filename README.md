@@ -8,14 +8,6 @@
 php artisan vendor:publish --provider="Ze\JsonRpcClient\RpcClientProvider"
 ```
 2.修改config/rpc.php中的配置
-3. 在config/app.php中添加别名
-```php
-// ...
- 'aliases' => [
-     // ... 
-     'Rpc' => Ze\JsonRpcClient\Facades\RpcClient::class
-];
-```
 
 ### 示例
 ```php
