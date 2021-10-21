@@ -1,5 +1,5 @@
-# 基于JSON-RPC的HTTP协议RPC客户端
-> 本项目基于JSON-RPC的服务端为基础实现的rpc服务端    
+#JSON-RPC客户端(Http协议)
+> 本项目是基于JSON-RPC的服务端端实现的rpc客户端    
 > server端见：https://sajya.github.io/
 
 ### 初始化
@@ -11,6 +11,8 @@ php artisan vendor:publish --provider="Ze\JsonRpcClient\RpcClientProvider"
 
 ### 示例
 ```php
+// *需先启动服务
+
 // 注册rpc客户端
 $rpc = \Rpc::connect('example')->path('api/v1/endpoint');
 
