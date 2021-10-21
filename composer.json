@@ -13,6 +13,7 @@
             "email": "954489346zyz@sina.com"
         }
     ],
+    "license": "MIT",
     "minimum-stability": "dev",
     "require": {
         "guzzlehttp/guzzle": "^6.3"
