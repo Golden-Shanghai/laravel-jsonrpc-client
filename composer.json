@@ -1,5 +1,5 @@
 {
-    "name": "root/json-rpc-client",
+    "name": "Ze/json-rpc-client",
     "description": "rpc client base on json-rpc with http",
     "type": "composer-plugin",
     "autoload": {
