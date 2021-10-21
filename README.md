@@ -1,4 +1,4 @@
-# 基于JSON-RPC与HTTP协议的RPC客户端
+# 基于JSON-RPC的HTTP协议RPC客户端
 > 本项目基于JSON-RPC的服务端为基础实现的rpc服务端    
 > server端见：https://sajya.github.io/
 
