@@ -28,14 +28,9 @@ class RpcClientProvider extends ServiceProvider implements DeferrableProvider
      */
     public function boot()
     {
-        // 视图
-//        $this->loadViewsFrom(__DIR__ . '/views', 'JsonRpcClient');
-
         $this->publishes([
-            // 视图发布
-//            __DIR__ . '/views' => base_path('resources/views/vendor/json-rpc-client'),
             // 配置文件发布
-            __DIR__ . '/config/rpc.php' => config_path('rpc.php')
+            __DIR__ . '/../config/rpc.php' => config_path('rpc.php')
         ]);
 
     }

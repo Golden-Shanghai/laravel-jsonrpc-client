@@ -22,7 +22,11 @@
         "laravel": {
             "providers": [
                 "Ze\\JsonRpcClient\\RpcClientProvider"
-            ]
+            ],
+            "aliases":
+            {
+                "Rpc": "Ze\\JsonRpcClient\\Facades\\RpcClient"
+            }
         }
     }
 }
