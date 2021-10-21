@@ -16,7 +16,7 @@
     "license": "MIT",
     "minimum-stability": "dev",
     "require": {
-        "guzzlehttp/guzzle": "^6.3"
+        "guzzlehttp/guzzle": ">6.3"
     },
     "extra": {
         "laravel": {
