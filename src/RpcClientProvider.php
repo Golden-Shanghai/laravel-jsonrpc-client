@@ -4,6 +4,8 @@ namespace Ze\JsonRpcClient;
 
 use Illuminate\Contracts\Support\DeferrableProvider;
 use Illuminate\Support\ServiceProvider;
+use Ze\JsonRpcClient\Middleware\AuthTokenCheck;
+use Ze\JsonRpcClient\Middleware\IpLimitCheck;
 use Ze\JsonRpcClient\Services\RpcClient;
 
 class RpcClientProvider extends ServiceProvider implements DeferrableProvider
@@ -16,8 +18,8 @@ class RpcClientProvider extends ServiceProvider implements DeferrableProvider
     ];
 
     protected $routeMiddleware = [
-        'rpc.auth'  => '',
-        'rpc.ip'    =>  '',
+        'rpc.auth'  => AuthTokenCheck::class,
+        'rpc.ip'    =>  IpLimitCheck::class,
     ];
 
     // 注册
