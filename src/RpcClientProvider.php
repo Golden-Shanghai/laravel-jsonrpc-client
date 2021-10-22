@@ -10,12 +10,6 @@ use Ze\JsonRpcClient\Services\RpcClient;
 
 class RpcClientProvider extends ServiceProvider implements DeferrableProvider
 {
-    protected $middlewareGroups = [
-        'rpc'   =>  [
-            'rpc.auth',
-            'rpc.ip'
-        ]
-    ];
 
     protected $routeMiddleware = [
         'rpc.auth'  => AuthTokenCheck::class,
@@ -30,14 +24,9 @@ class RpcClientProvider extends ServiceProvider implements DeferrableProvider
             return new RpcClient($app['config']['rpc']['client']);
         });
 
-        // 路由组
-        foreach ($this->middlewareGroups as $key => $middleware) {
-            app('router')->middlewareGroup($key, $middleware);
-        }
-
         // 路由中间件注册
         foreach ($this->routeMiddleware as $key => $middleware) {
-            app('router')->aliasMiddleware($key, $middleware);
+            $this->addMiddlewareAlias($key, $middleware);
         }
     }
 
@@ -55,5 +44,19 @@ class RpcClientProvider extends ServiceProvider implements DeferrableProvider
     public function provides()
     {
         return ['rpc-client'];
+    }
+
+
+    protected function addMiddlewareAlias($name, $class)
+    {
+        $router = $this->app['router'];
+
+        // 判断aliasMiddleware是否在类中存在
+        if (method_exists($router, 'aliasMiddleware')) {
+            // aliasMiddleware 顾名思义,就是给中间件设置一个别名
+            return $router->aliasMiddleware($name, $class);
+        }
+
+        return $router->middleware($name, $class);
     }
 }
