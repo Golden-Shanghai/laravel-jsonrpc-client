@@ -4,16 +4,13 @@ namespace Ze\JsonRpcClient;
 
 use Illuminate\Contracts\Support\DeferrableProvider;
 use Illuminate\Support\ServiceProvider;
-use Ze\JsonRpcClient\Middleware\AuthTokenCheck;
-use Ze\JsonRpcClient\Middleware\IpLimitCheck;
 use Ze\JsonRpcClient\Services\RpcClient;
 
 class RpcClientProvider extends ServiceProvider implements DeferrableProvider
 {
-
     protected $routeMiddleware = [
-        'rpc.auth'  => AuthTokenCheck::class,
-        'rpc.ip'    =>  IpLimitCheck::class,
+        'rpc.auth'  => \Ze\JsonRpcClient\Middleware\AuthTokenCheck::class,
+        'rpc.ip'    =>  \Ze\JsonRpcClient\Middleware\IpLimitCheck::class,
     ];
 
     // 注册
@@ -26,7 +23,7 @@ class RpcClientProvider extends ServiceProvider implements DeferrableProvider
 
         // 路由中间件注册
         foreach ($this->routeMiddleware as $key => $middleware) {
-            $this->addMiddlewareAlias($key, $middleware);
+            app('router')->aliasMiddleware($key, $middleware);
         }
     }
 
@@ -44,19 +41,5 @@ class RpcClientProvider extends ServiceProvider implements DeferrableProvider
     public function provides()
     {
         return ['rpc-client'];
-    }
-
-
-    protected function addMiddlewareAlias($name, $class)
-    {
-        $router = $this->app['router'];
-
-        // 判断aliasMiddleware是否在类中存在
-        if (method_exists($router, 'aliasMiddleware')) {
-            // aliasMiddleware 顾名思义,就是给中间件设置一个别名
-            return $router->aliasMiddleware($name, $class);
-        }
-
-        return $router->middleware($name, $class);
     }
 }
