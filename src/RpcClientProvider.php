@@ -8,24 +8,38 @@ use Ze\JsonRpcClient\Services\RpcClient;
 
 class RpcClientProvider extends ServiceProvider implements DeferrableProvider
 {
-    /**
-     * Register services.
-     *
-     * @return void
-     */
+    protected $middlewareGroups = [
+        'rpc'   =>  [
+            'rpc.auth',
+            'rpc.ip'
+        ]
+    ];
+
+    protected $routeMiddleware = [
+        'rpc.auth'  => '',
+        'rpc.ip'    =>  '',
+    ];
+
+    // 注册
     public function register()
     {
+        // 服务注册
         $this->app->singleton('rpc-client', function ($app) {
-
             return new RpcClient($app['config']['rpc']['client']);
         });
+
+        // 路由组
+        foreach ($this->middlewareGroups as $key => $middleware) {
+            app('router')->middlewareGroup($key, $middleware);
+        }
+
+        // 路由中间件注册
+        foreach ($this->routeMiddleware as $key => $middleware) {
+            app('router')->aliasMiddleware($key, $middleware);
+        }
     }
 
-    /**
-     * Bootstrap services.
-     *
-     * @return void
-     */
+    // 引导
     public function boot()
     {
         $this->publishes([
@@ -35,11 +49,7 @@ class RpcClientProvider extends ServiceProvider implements DeferrableProvider
 
     }
 
-    /**
-     * Get the services provided by the provider.
-     *
-     * @return array
-     */
+    // 懒加载
     public function provides()
     {
         return ['rpc-client'];

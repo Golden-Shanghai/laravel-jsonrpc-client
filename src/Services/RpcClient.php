@@ -60,15 +60,13 @@ class RpcClient
             throw new RpcClientException('Method is Null', -1);
         }
         $data = [
-            'json' => [
-                'jsonrpc' => '2.0',
-                'id'      => 1,
-                'method'  => $method,
-                'params'  => $params,
-            ]
+            'jsonrpc' => '2.0',
+            'id'      => 1,
+            'method'  => $method,
+            'params'  => $params,
         ];
 
-        return $this->send($data);
+        return $this->send(['json'=>$data]);
     }
 
     /**
@@ -95,7 +93,7 @@ class RpcClient
             ];
         }
 
-        return $this->send($data, 'batch');
+        return $this->send(['json'=>$data], 'batch');
     }
 
     // 执行请求
@@ -106,6 +104,11 @@ class RpcClient
         }
 
         $url = $this->connect['host'] . ':' . $this->connect['port'] . '/' . $this->path;
+
+        //签名
+        $data['header'] = [
+            'token' =>  $this->sign($data['json'])
+        ];
 
         $response = json_decode((new Client())->request('POST', $url, $data)->getBody()->getContents(), true);
 
@@ -118,5 +121,13 @@ class RpcClient
         }
 
         return $response;
+    }
+
+    // 签名
+    private function sign($data)
+    {
+        $data = ksort($data);
+
+        return urlencode(base64_encode(hash_hmac('sha256',json_encode($data),$this->connect['secret'],true)));
     }
 }
