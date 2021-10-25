@@ -106,7 +106,7 @@ class RpcClient
         $url = $this->connect['host'] . ':' . $this->connect['port'] . '/' . $this->path;
 
         //签名
-        $data['header'] = [
+        $data['headers'] = [
             'token' =>  $this->sign($data['json'])
         ];
 
