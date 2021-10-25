@@ -2,11 +2,10 @@
 
 namespace Ze\JsonRpcClient;
 
-use Illuminate\Contracts\Support\DeferrableProvider;
 use Illuminate\Support\ServiceProvider;
 use Ze\JsonRpcClient\Services\RpcClient;
 
-class RpcClientProvider extends ServiceProvider implements DeferrableProvider
+class RpcClientProvider extends ServiceProvider
 {
     protected $routeMiddleware = [
         'rpc.auth'  => \Ze\JsonRpcClient\Middleware\AuthTokenCheck::class,
@@ -35,11 +34,5 @@ class RpcClientProvider extends ServiceProvider implements DeferrableProvider
             __DIR__ . '/../config/rpc.php' => config_path('rpc.php')
         ]);
 
-    }
-
-    // 懒加载
-    public function provides()
-    {
-        return ['rpc-client'];
     }
 }
