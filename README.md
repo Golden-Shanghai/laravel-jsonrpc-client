@@ -7,7 +7,7 @@
 ```shell
 php artisan vendor:publish --provider="Ze\JsonRpcClient\RpcClientProvider"
 ```
-2.修改config/rpc.php中的配置
+2.修改config/rpc.php中的配置，可参照vendor/ze/laravel-jsonrpc-client/config/rpc.php
 
 ### 示例
 ```php
