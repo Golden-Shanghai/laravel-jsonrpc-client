@@ -99,11 +99,11 @@ class RpcClient
     // 执行请求
     private function send(array $data, string $type = 'single')
     {
-        if (empty($this->connect['host']) || empty($this->connect['port']) || ! $this->path) {
+        if (empty($this->connect['host'])) {
             throw new RpcClientException('Request url is Null', -1);
         }
 
-        $url = $this->connect['host'] . ':' . $this->connect['port'] . '/' . $this->path;
+        $url = $this->connect['host'] . ($this->connect['port'] ? (':' . $this->connect['port']) : '') . '/' . $this->path;
 
         //签名
         $data['headers'] = [
