@@ -1,13 +1,13 @@
 <?php
 
 
-namespace Ze\JsonRpcClient\Services;
+namespace Ze\JsonRPCClient\Services;
 
 
 use GuzzleHttp\Client;
-use Ze\JsonRpcClient\Exceptions\RpcClientException;
+use Ze\JsonRPCClient\Exceptions\RPCClientException;
 
-class RpcClient
+class RPCClient
 {
     protected $config;
 
@@ -57,7 +57,7 @@ class RpcClient
     public function request(string $method, array $params = [])
     {
         if (! $method) {
-            throw new RpcClientException('Method is Null', -1);
+            throw new RPCClientException('Method is Null', -1);
         }
         $data = [
             'jsonrpc' => '2.0',
@@ -82,7 +82,7 @@ class RpcClient
         foreach ($params as $param) {
 
             if (empty($param['method']) || empty($param['params']) || empty($param['id'])) {
-                throw new RpcClientException('Params Incomplete ', -1);
+                throw new RPCClientException('Params Incomplete ', -1);
             }
 
             $data[] = [
@@ -100,7 +100,7 @@ class RpcClient
     private function send(array $data, string $type = 'single')
     {
         if (empty($this->connect['host'])) {
-            throw new RpcClientException('Request url is Null', -1);
+            throw new RPCClientException('Request url is Null', -1);
         }
 
         $url = $this->connect['host'] . ($this->connect['port'] ? (':' . $this->connect['port']) : '') . '/' . $this->path;
@@ -113,7 +113,7 @@ class RpcClient
         $response = json_decode((new Client())->request('POST', $url, $data)->getBody()->getContents(), true);
 
         if (isset($response['code'])) {
-            throw new RpcClientException($response['message'], $response['code']);
+            throw new RPCClientException($response['message'], $response['code']);
         }
 
         if ($type == 'single') {

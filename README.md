@@ -5,7 +5,7 @@
 ### 初始化
 1. 发布
 ```shell
-php artisan vendor:publish --provider="Ze\JsonRpcClient\RpcClientProvider"
+php artisan vendor:publish --provider="Ze\JsonRPCClient\RPCClientProvider"
 ```
 2.修改config/rpc.php中的配置，可参照vendor/ze/laravel-jsonrpc-client/config/rpc.php
 
@@ -14,7 +14,7 @@ php artisan vendor:publish --provider="Ze\JsonRpcClient\RpcClientProvider"
 // *需先启动服务
 
 // 注册rpc客户端
-$rpc = \Rpc::connect('example')->path('api/v1/endpoint');
+$rpc = \RPC::connect('example')->path('api/v1/endpoint');
 
 // 单条请求
 $rpc->request('DataSourceProcedure@handle',['name'=>'test']);

@@ -1,11 +1,11 @@
 <?php
 
 
-namespace Ze\JsonRpcClient\Middleware;
+namespace Ze\JsonRPCClient\Middleware;
 
 use Closure;
 use Illuminate\Http\Request;
-use Ze\JsonRpcClient\Exceptions\RpcClientException;
+use Ze\JsonRPCClient\Exceptions\RPCClientException;
 
 class AuthTokenCheck
 {
@@ -16,7 +16,7 @@ class AuthTokenCheck
         $token = $request->header('token');
 
         if ($token != $this->sign($params)) {
-            throw new RpcClientException('请求参数验签失败', -1);
+            throw new RPCClientException('请求参数验签失败', -1);
         }
 
         return $next($request);

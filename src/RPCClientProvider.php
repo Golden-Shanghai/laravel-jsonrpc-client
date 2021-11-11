@@ -1,15 +1,15 @@
 <?php
 
-namespace Ze\JsonRpcClient;
+namespace Ze\JsonRPCClient;
 
 use Illuminate\Support\ServiceProvider;
-use Ze\JsonRpcClient\Services\RpcClient;
+use Ze\JsonRPCClient\Services\RPCClient;
 
-class RpcClientProvider extends ServiceProvider
+class RPCClientProvider extends ServiceProvider
 {
     protected $routeMiddleware = [
-        'rpc.auth' => \Ze\JsonRpcClient\Middleware\AuthTokenCheck::class,
-        'rpc.ip'   => \Ze\JsonRpcClient\Middleware\IpLimitCheck::class,
+        'rpc.auth' => \Ze\JsonRPCClient\Middleware\AuthTokenCheck::class,
+        'rpc.ip'   => \Ze\JsonRPCClient\Middleware\IpLimitCheck::class,
     ];
 
     // 注册
@@ -17,7 +17,7 @@ class RpcClientProvider extends ServiceProvider
     {
         // 服务注册
         $this->app->singleton('rpc-client', function ($app) {
-            return new RpcClient($app['config']['rpc']['client']);
+            return new RPCClient($app['config']['rpc']['others']);
         });
 
         // 路由中间件注册

@@ -1,11 +1,11 @@
 <?php
 
 
-namespace Ze\JsonRpcClient\Middleware;
+namespace Ze\JsonRPCClient\Middleware;
 
 use Closure;
 use Illuminate\Http\Request;
-use Ze\JsonRpcClient\Exceptions\RpcClientException;
+use Ze\JsonRPCClient\Exceptions\RPCClientException;
 
 class IpLimitCheck
 {
@@ -18,7 +18,7 @@ class IpLimitCheck
         }
 
         if (! in_array($request->getClientIp(), $ipAccess)) {
-            throw new RpcClientException('ip不在白名单中', -1);
+            throw new RPCClientException('ip不在白名单中', -1);
         }
 
         return $next($request);

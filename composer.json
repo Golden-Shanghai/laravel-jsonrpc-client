@@ -4,7 +4,7 @@
     "type": "library",
     "autoload": {
         "psr-4": {
-            "Ze\\JsonRpcClient\\": "src/"
+            "Ze\\JsonRPCClient\\": "src/"
         }
     },
     "authors": [
@@ -24,11 +24,11 @@
     "extra": {
         "laravel": {
             "providers": [
-                "Ze\\JsonRpcClient\\RpcClientProvider"
+                "RPCClientProvider"
             ],
             "aliases":
             {
-                "Rpc": "Ze\\JsonRpcClient\\Facades\\RpcClient"
+                "RPC": "RPCClient"
             }
         }
     }

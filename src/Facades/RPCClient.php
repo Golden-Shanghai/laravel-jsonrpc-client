@@ -1,12 +1,12 @@
 <?php
 
 
-namespace Ze\JsonRpcClient\Facades;
+namespace Ze\JsonRPCClient\Facades;
 
 
 use Illuminate\Support\Facades\Facade;
 
-class RpcClient extends Facade
+class RPCClient extends Facade
 {
     protected static function getFacadeAccessor()
     {
