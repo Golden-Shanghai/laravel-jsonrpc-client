@@ -24,11 +24,11 @@
     "extra": {
         "laravel": {
             "providers": [
-                "RPCClientProvider"
+                "Ze\\JsonRPCClient\\RPCClientProvider"
             ],
             "aliases":
             {
-                "RPC": "RPCClient"
+                "RPC": "Ze\\JsonRPCClient\\Facades\\RPCClient"
             }
         }
     }
