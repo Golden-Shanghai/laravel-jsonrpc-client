@@ -66,7 +66,7 @@ class RpcClient
             'params'  => $params,
         ];
 
-        return $this->send(['json'=>$data]);
+        return $this->send(['json' => $data]);
     }
 
     /**
@@ -93,7 +93,7 @@ class RpcClient
             ];
         }
 
-        return $this->send(['json'=>$data], 'batch');
+        return $this->send(['json' => $data], 'batch');
     }
 
     // 执行请求
@@ -107,7 +107,7 @@ class RpcClient
 
         //签名
         $data['headers'] = [
-            'token' =>  $this->sign($data['json'])
+            'token' => $this->sign($data['json'])
         ];
 
         $response = json_decode((new Client())->request('POST', $url, $data)->getBody()->getContents(), true);
@@ -128,6 +128,6 @@ class RpcClient
     {
         $data = ksort($data);
 
-        return urlencode(base64_encode(hash_hmac('sha256',json_encode($data),$this->connect['secret'],true)));
+        return urlencode(base64_encode(hash_hmac('sha256', json_encode($data), $this->connect['secret'], true)));
     }
 }

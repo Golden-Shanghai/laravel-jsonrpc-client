@@ -13,8 +13,12 @@ class IpLimitCheck
     {
         $ipAccess = config('rpc.server.access');
 
-        if(!in_array($request->getClientIp(),$ipAccess)){
-            throw new RpcClientException('ip不在白名单中',-1);
+        if (in_array('*', $ipAccess)) {
+            return $next($request);
+        }
+
+        if (! in_array($request->getClientIp(), $ipAccess)) {
+            throw new RpcClientException('ip不在白名单中', -1);
         }
 
         return $next($request);

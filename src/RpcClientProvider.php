@@ -8,8 +8,8 @@ use Ze\JsonRpcClient\Services\RpcClient;
 class RpcClientProvider extends ServiceProvider
 {
     protected $routeMiddleware = [
-        'rpc.auth'  => \Ze\JsonRpcClient\Middleware\AuthTokenCheck::class,
-        'rpc.ip'    =>  \Ze\JsonRpcClient\Middleware\IpLimitCheck::class,
+        'rpc.auth' => \Ze\JsonRpcClient\Middleware\AuthTokenCheck::class,
+        'rpc.ip'   => \Ze\JsonRpcClient\Middleware\IpLimitCheck::class,
     ];
 
     // 注册
