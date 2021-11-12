@@ -18,7 +18,7 @@ class RPCClient
 
     public function connect(string $configName)
     {
-        if (! isset($$this->config[$configName])) {
+        if (! isset($this->config[$configName])) {
             throw new RPCClientException('Invalid RPC ConfigName');
         }
 
@@ -56,7 +56,7 @@ class RPCClient
 
         foreach ($params as $param) {
 
-            if (empty($param['method']) || empty($param['params']) || empty($param['id'])) {
+            if (empty($param['method']) || empty($param['id'])) {
                 throw new RPCClientException('Params Incomplete');
             }
 
@@ -64,7 +64,7 @@ class RPCClient
                 'jsonrpc' => '2.0',
                 'id'      => $param['id'],
                 'method'  => $param['method'],
-                'params'  => $param['params'],
+                'params'  => $param['params']??[],
             ];
         }
 
