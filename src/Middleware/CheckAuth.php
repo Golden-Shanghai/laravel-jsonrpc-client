@@ -1,5 +1,6 @@
 <?php
 
+// 本中间件在 RPC 端运行
 
 namespace Ze\JsonRPCClient\Middleware;
 
@@ -7,22 +8,22 @@ use Closure;
 use Illuminate\Http\Request;
 use Ze\JsonRPCClient\Exceptions\RPCClientException;
 
-class AuthTokenCheck
+class CheckAuth
 {
     public function handle($request, Closure $next)
     {
         $params = $request->all();
 
-        $token = $request->header('token');
+        $sign = $request->header('sign');
 
-        if ($token != $this->sign($params)) {
-            throw new RPCClientException('请求参数验签失败', -1);
+        if ($sign != $this->buildSign($params)) {
+            throw new RPCClientException('RPC 请求参数验签失败');
         }
 
         return $next($request);
     }
 
-    private function sign($params)
+    private function buildSign($params)
     {
         $params = ksort($params);
 
