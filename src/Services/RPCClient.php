@@ -112,8 +112,14 @@ class RPCClient
 
         $response = json_decode((new Client())->request('POST', $url, $data)->getBody()->getContents(), true);
 
+        // rpc全局异常
         if (isset($response['code'])) {
             throw new RPCClientException($response['message'], $response['code']);
+        }
+
+        // 接口自定义异常
+        if (isset($response['error']) && $response['error']) {
+            throw new RPCClientException($response['error']['message'] ?? '', $response['error']['code'] ?? -1);
         }
 
         if ($type == 'single') {
