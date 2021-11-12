@@ -103,7 +103,7 @@ class RPCClient
             throw new RPCClientException('Request url is Null', -1);
         }
 
-        $url = $this->connect['host'] . ($this->connect['port'] ? (':' . $this->connect['port']) : '') . '/' . $this->path;
+        $url = $this->connect['host'] . (isset($this->connect['port']) && $this->connect['port'] ? (':' . $this->connect['port']) : '') . $this->path;
 
         //签名
         $data['headers'] = [
