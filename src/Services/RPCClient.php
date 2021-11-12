@@ -81,7 +81,7 @@ class RPCClient
         $data = [];
         foreach ($params as $param) {
 
-            if (empty($param['method']) || empty($param['params']) || empty($param['id'])) {
+            if (empty($param['method']) || empty($param['id'])) {
                 throw new RPCClientException('Params Incomplete ', -1);
             }
 
@@ -89,7 +89,7 @@ class RPCClient
                 'jsonrpc' => '2.0',
                 'id'      => $param['id'],
                 'method'  => $param['method'],
-                'params'  => $param['params'],
+                'params'  => $param['params']??[],
             ];
         }
 
