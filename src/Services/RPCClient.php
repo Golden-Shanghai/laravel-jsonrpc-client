@@ -104,7 +104,7 @@ class RPCClient
 
     private function buildSign(array $params)
     {
-        $params = ksort($params);
+        ksort($params);
 
         return urlencode(base64_encode(hash_hmac('sha256', json_encode($params), $this->connect['secret'], true)));
     }

@@ -25,7 +25,7 @@ class CheckAuth
 
     private function buildSign($params)
     {
-        $params = ksort($params);
+        ksort($params);
 
         $secretKey = config('rpc.server.secret');
 
