@@ -64,7 +64,7 @@ class RPCClient
                 'jsonrpc' => '2.0',
                 'id'      => $param['id'],
                 'method'  => $param['method'],
-                'params'  => $param['params']??[],
+                'params'  => $param['params'] ?? [],
             ];
         }
 
@@ -83,23 +83,29 @@ class RPCClient
             'sign' => $this->buildSign($payload['json']),
         ];
 
-        $response = json_decode((new Client())->request('POST', $url, $payload)->getBody()->getContents(), true);
+        $resp = (new Client())->request('POST', $url, $payload)->getBody()->getContents();
+
+        $json = json_decode($resp, true);
+
+        if ($json === null) {
+            throw new RPCClientException('Invalid JsonResp: ' . $resp);
+        }
 
         // 全局异常
-        if (isset($response['code'])) {
-            throw new RPCClientException($response['message'], $response['code']);
+        if (isset($json['code'])) {
+            throw new RPCClientException($json['message'], $json['code']);
         }
 
         // 接口自定义异常
-        if (isset($response['error']) && $response['error']) {
-            throw new RPCClientException($response['error']['message'] ?? '', $response['error']['code'] ?? -1);
+        if (isset($json['error']) && $json['error']) {
+            throw new RPCClientException($json['error']['message'] ?? '', $json['error']['code'] ?? -1);
         }
 
         if ($type == 'single') {
-            return $response['result'];
+            return $json['result'];
         }
 
-        return $response;
+        return $json;
     }
 
     private function buildSign(array $params)
