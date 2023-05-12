@@ -80,6 +80,7 @@ class RPCClient
         $url = $this->connect['host'] . '/' . ltrim($this->path, '/');
 
         $payload['headers'] = [
+            'client_name' => config('app.name', ''),
             'sign' => $this->buildSign($payload['json']),
         ];
 
